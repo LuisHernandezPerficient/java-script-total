@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cuenta Regresiva</title>
+  </head>
+  <body onload="iniciarCuentaRegresiva()">
+    <h1 id="cuentaRegresiva">30</h1>
+
+    <p>What is your name <input type="text" id="name" /></p>
+
+    <p>What is your father name <input type="text" id="fathername"></p>
+       <p>What is your mother name <input type="text" id="mothername"></p>
+       <p>What is your nickname <input type="text" id="nickname"></p>
+    <p>What is your last name <input type="text" id="lastname"></p>
+
+    <audio id="audioId">
+      <source src="alarma.mp3" type="audio/mpeg" />
+    </audio>
+
+    <button onclick=obtenerRespuestas()>Finalizar</button>
+    <button onclick=volverReintentar()>Reintentar</button>
+
+
+    <script>
+
+function obtenerRespuestas() {
+    let  fecha = new Date()     
+    const respuesta = (document.getElementById("name").value + " " + document.getElementById("fathername").value + document.getElementById("mothername").value + document.getElementById("nickname").value + document.getElementById("lastname").value);
+
+          alert(fecha + respuesta)
+        }
+function volverReintentar(){
+    location.reload()
+}
+      function iniciarCuentaRegresiva() {
+        let tiempoRestante = 15; // Tiempo inicial
+        let sonidoAlarma = document.getElementById("audioId");
+
+  
+
+        // Función para mostrar el tiempo restante
+        function mostrarTiempo() {
+          const h1Element = document.getElementById("cuentaRegresiva");
+          h1Element.textContent = tiempoRestante;
+
+          tiempoRestante--;
+          
+          // Cuando el tiempo llega a cero, detenemos el intervalo
+          if (tiempoRestante < 0) {
+            sonidoAlarma.play();
+
+            clearInterval(intervalo);
+            
+
+            h1Element.textContent = "¡Tiempo terminado!";
+          }
+        }
+
+        // Llamamos a la función mostrarTiempo cada segundo usando setInterval
+        const intervalo = setInterval(mostrarTiempo, 1000);
+
+        // Iniciamos la cuenta regresiva después de 1 segundo usando setTimeout
+        setTimeout(mostrarTiempo(), 2000);
+      }
+    </script>
+  </body>
+</html>
